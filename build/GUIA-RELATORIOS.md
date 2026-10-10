@@ -73,25 +73,22 @@ os Insights.
 
 ## Contexto do funil
 
-**Funil de High Ticket (<<PREENCHER: nome do cliente>>)** — <<PREENCHER: descrição
-curta do cliente/oferta>>. Funil de captura via WhatsApp com venda 1:1 (comercial
-fecha por conversa/reunião, não carrinho direto): o anúncio no Meta Ads leva
-a uma página de captura com botão do WhatsApp; ao clicar, o lead chama no
-WhatsApp Business do cliente e o webhook de mensageria dispara na 1ª mensagem,
-que cai na aba **Conversas** (fonte principal de leads deste dashboard). O
-critério de qualificação (MQL) é <<PREENCHER: critério de MQL do cliente, ex.
-"o lead ser médico">> — se qualificado, segue a conversa com o comercial até a
-venda (registrada na aba de Compradores e cruzada de volta ao anúncio por telefone).
+**Isca gratuita (Nubia Oliveira · funil raio-x)** — captação de leads por isca
+gratuita. O anúncio no Meta Ads leva a uma landing page (`familiaprovada.com/raio-x/`)
+onde a pessoa se inscreve; a inscrição cai na planilha de **Leads** (fonte
+principal deste dashboard), já com os parâmetros UTM que atribuem o lead a
+campanha/conjunto/anúncio. **Não há critério de MQL nem vendas/faturamento** — o
+lead é a conversão final.
 
 ```
-Impressões → Cliques/abertura do WhatsApp → Leads → MQLs → Vendas → Faturamento
+Impressões → Cliques → Page Views → Leads
 ```
 
-- **MQL** = coluna de qualificação (<<PREENCHER: nome da coluna de MQL>>) == "Sim" (ver `build.py` → `is_medico`).
-- **Agendamento** = o lead qualificado marcou horário de reunião com o comercial.
-- **Reunião Realizada** = a reunião de fato aconteceu (o lead compareceu). O
-  inverso disso é o **No‑Show** (agendou e não compareceu) — a métrica de alerta
-  mais importante entre Agendamento e Venda.
+- **Lead** = cada inscrição na isca (uma linha na planilha de Leads).
+- **CPL** (custo por lead) = gasto do Meta Ads ÷ leads. É a métrica-chave de
+  eficiência desta dash (meta editável no painel da aba Relatório).
+- **Origem** = `utm_source`/`utm_campaign`: com UTM válido → **pago (Meta)**;
+  sem UTM → **orgânico** (`(sem campanha)`).
 
 > **Estado atual dos dados:** enquanto só houver mídia paga × Leads, o funil
 > vai até **MQL**. As etapas seguintes (Agendamentos, Reuniões Realizadas, Vendas,

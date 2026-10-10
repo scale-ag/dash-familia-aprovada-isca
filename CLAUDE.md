@@ -4,15 +4,17 @@
 > Ele carrega TODO o contexto necessário para continuar o trabalho sem depender
 > de mensagens anteriores. Mantenha-o atualizado.
 >
-> **Este é um TEMPLATE limpo.** Todos os valores específicos do cliente estão
-> marcados como `<<PREENCHER: descrição>>`. Siga o CHECKLIST abaixo para
-> configurar um cliente novo.
+> **Este repositório já está CONFIGURADO** para o cliente **Nubia Oliveira**
+> (isca gratuita · funil **raio-x**). Diferente do modelo original (High Ticket
+> com MQL + vendas), esta dash é de **captação pura**: 2 planilhas (Leads + Meta
+> Ads), **sem MQL e sem vendas/faturamento**. O checklist abaixo é do template
+> original, mantido como referência.
 
 ---
 
 ## ✅ CHECKLIST DE NOVO CLIENTE (fazer em ordem)
 
-Preencha cada `<<PREENCHER: …>>` do repositório. Ordem sugerida:
+Passos do template original (já aplicados neste repositório). Ordem sugerida:
 
 1. **`build/build.py` — constantes do topo:**
    - `SPREADSHEET_ID` — ID da planilha central do Google Sheets do cliente.
@@ -69,24 +71,29 @@ puro + Chart.js via CDN) publicado no **GitHub Pages**, que cruza a lista de
 **Leads** com o gerenciador de mídia paga e se atualiza sozinho a cada ~30 min
 (build 100% na nuvem via GitHub Actions, disparado externamente pelo cron-job.org).
 
-- **URL pública:** `https://<<PREENCHER: owner do GitHub>>.github.io/<<PREENCHER: nome do repositório>>/`
+- **URL pública:** `https://scale-ag.github.io/dash-familia-aprovada-isca/`
 - **Somente leitura** das planilhas. Nunca escrever de volta.
 
 ## Fontes de dados (Google Sheets)
 
-Spreadsheet ID: `<<PREENCHER: SPREADSHEET_ID>>` ("<<PREENCHER: nome da planilha central>>").
+**Isca gratuita — duas planilhas distintas** (não uma planilha central com 4 abas):
+- **Leads** (`SPREADSHEET_ID_LEADS = 1_pBhH2m3R1BR11kRdgq2cn_j3L2JaifO3ui3xFbnd28`), aba **Leads** (`GID_LEADS = 0`).
+- **Meta Ads** ("Extração Dashboard - Isca Out26", `SPREADSHEET_ID_META = 1BL0Lz6d5mDPhT77qEtBbIeN6oMyVN1fEmEQlTgLSSLY`), aba **Página1** (`GID_META = 0`).
+
+Não há aba **Conversas** nem **Compradores/New Subscriptions**; **não há MQL nem
+vendas**. A tabela abaixo é do modelo original (mantida como referência).
 
 | Aba | gid | Colunas usadas |
 |-----|-----|----------------|
-| **Conversas** (fonte principal — webhook de mensageria/WhatsApp) | `<<PREENCHER: GID_CONVERSAS>>` | `Data` · `Mensagem` · `Nome` · `Telefone` · coluna de MQL · `Campanha` · `Conjunto` · `Anúncio` · `Especialidades` |
-| **Leads** (legado — popup/form antigo, só contada) | `<<PREENCHER: GID_LEADS>>` | `Data` · `Nome` · `Email` · `Telefone` · coluna de MQL · `Especialidade` · `utm_*` · `MQL` · `Compra Detectada`/`Faturamento Detectado`/`Data Compra` |
-| **Meta Ads** | `<<PREENCHER: GID_META>>` | `Day` · `Ad ID` · `Campaign Name` · `Ad Set Name` · `Ad Name` · `Amount Spent` · `Impressions` · `Link Clicks` · `Landing Page Views` · `Content Views` · `Adds to Cart` · `Subscriptions` · `Subscribe Conversion Value` |
-| **New Subscriptions** (Compradores) | `<<PREENCHER: GID_SALES>>` | `Data` · `Nome` · `Email` · `Telefone` · `Produto` · `Oferta` · `Faturamento` · `Receita` · `Método de Pagamento` · `Campanha` · `Conjunto` · `Anúncio` · `UF` · `Cidade` · `Zip Code` · `Endereço` |
+| **Leads** (fonte principal — inscrições na isca) | `0` | `data_inscricao` · `nome` · `email` · `telefone` · `utm_source` · `utm_campaign` (→Campanha) · `utm_medium` (→Conjunto) · `utm_content` (→Anúncio) · `utm_term` (→posicionamento) · `url_pagina` |
+| **Meta Ads** (aba Página1) | `0` | `Day` · `Campaign Name` · `Ad Set Name` · `Ad Name` · `Impressions` · `Link Clicks` · `Landing Page Views` · `Amount Spent` |
 
 URL de export CSV: `https://docs.google.com/spreadsheets/d/<ID>/export?format=csv&gid=<GID>`
 
 ### Regra de Lead Qualificado (MQL)
-Coluna de qualificação (<<PREENCHER: nome da coluna de MQL, ex. "É médico?">>) == "Sim".
+**Não se aplica a este cliente (isca gratuita): não há critério de MQL.** Em
+`build.py`, `q=0` para todo lead e a UI de captação não exibe MQL. O texto abaixo é
+do modelo High Ticket original (referência).
 Lógica em `build.py` → `is_medico`. O gráfico "Leads por especialidade" (`app.js`,
 `renderGeralCore`) colore verde/cinza pelo mesmo critério, usando a coluna
 `Especialidades`/`Especialidade` como dimensão.
@@ -127,10 +134,9 @@ volta ao gasto sem imposto. Se o cliente tiver um fator diferente, ajuste
 `TAX_FACTOR`; se não houver imposto, use `TAX_FACTOR = 1.0`.
 
 ### Convenções de campanha (do cliente)
-Todas as campanhas usam o prefixo `<<PREENCHER: MAIN_PRODUCT_PREFIX>>`
+Todas as campanhas usam o prefixo `ISCA`
 (`MAIN_PRODUCT_PREFIX`), sem filtrar por sub-funil — mantém TODAS as campanhas
-no dashboard. Ajuste o prefixo e, se o cliente usar siglas de etapa
-(ex. `<<PREENCHER: siglas de etapa, se houver>>`), documente-as aqui. A Conversas
+no dashboard (ex.: `ISCA-CGU | E2-CAP | LEAD | ABO | 2026-10-10`). A planilha de Leads
 já traz `Campanha`/`Conjunto`/`Anúncio` prontos (nomes idênticos ao
 `Campaign Name`/`Ad Set Name`/`Ad Name` do Meta Ads) — `build.py` só copia esses
 valores, sem precisar de UTM nessa aba.
